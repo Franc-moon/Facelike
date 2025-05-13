@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FaceLike - Générateur</title>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5648771296388510"
+     crossorigin="anonymous"></script>
+
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -15,7 +20,9 @@
       align-items: center;
       height: 100vh;
       color: #2c2c2c;
+      flex-direction: column;
     }
+
     .container {
       background: white;
       border-radius: 20px;
@@ -26,16 +33,20 @@
       display: none;
       animation: fadeIn 1s ease-in;
     }
+
     .active {
       display: block;
     }
+
     h2 {
       color: #d32f2f;
       margin-bottom: 10px;
     }
+
     p {
       font-size: 15px;
     }
+
     button {
       padding: 12px;
       width: 100%;
@@ -47,10 +58,12 @@
       margin-top: 15px;
       cursor: pointer;
     }
+
     button:hover {
       background: #fdd835;
       color: #8e24aa;
     }
+
     input, select {
       width: 100%;
       padding: 10px;
@@ -58,36 +71,44 @@
       border-radius: 8px;
       border: 1px solid #ccc;
     }
+
     .like-count {
       color: #d32f2f;
       font-weight: bold;
       font-size: 20px;
     }
+
     .like-icon {
       font-size: 30px;
       color: #d32f2f;
       animation: fly 0.8s linear infinite;
     }
+
     @keyframes fly {
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(-40px); opacity: 0; }
     }
+
     @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
     }
+
     .slider-box {
       margin-top: 15px;
       text-align: left;
     }
+
     input[type=range] {
       width: 100%;
     }
+
     #validateBtn:disabled {
       background: #ccc;
       border-color: #ccc;
       cursor: not-allowed;
     }
+
     #successMessage {
       font-size: 16px;
       font-weight: bold;
@@ -95,7 +116,6 @@
       margin-top: 15px;
     }
 
-    /* Splash Screen */
     #splash {
       position: fixed;
       top: 0;
@@ -108,11 +128,17 @@
       align-items: center;
       z-index: 9999;
     }
+
     #splash h1 {
       font-size: 48px;
       color: white;
       text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
       animation: fadeIn 1s ease-in-out;
+    }
+
+    .ad-space {
+      margin: 20px auto;
+      text-align: center;
     }
   </style>
 </head>
@@ -166,13 +192,23 @@
       <div id="successMessage" style="display:none;">Vos likes ont été envoyés avec succès !</div>
       <button id="returnBtn" onclick="goHome()" style="display:none;">Retour à l'accueil</button>
     </div>
+  </div>
 
-    <!-- Conteneur pour les publicités -->
-    <div id="autoAds" style="margin: 20px 0;"></div>
+  <!-- Zone d'affichage des pubs -->
+  <div class="ad-space">
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-client="ca-pub-5648771296388510"
+         data-ad-slot="1234567890"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <script>
-    // Splash screen timeout
+    // Splash screen
     window.onload = () => {
       setTimeout(() => {
         document.getElementById("splash").style.display = "none";
@@ -197,8 +233,6 @@
       }
       document.getElementById("terms").classList.remove("active");
       document.getElementById("generator").classList.add("active");
-
-      launchAdsLoop(); // Démarre les pubs toutes les 20 secondes
     }
 
     function generate() {
@@ -245,27 +279,20 @@
       document.getElementById("postLink").value = "";
     }
 
-    // Fonction pour afficher des pubs toutes les 20 secondes
-    function launchAdsLoop() {
-      setInterval(() => {
-        const adContainer = document.getElementById("autoAds");
+    // Afficher une nouvelle pub toutes les 20 secondes
+    setInterval(() => {
+      const ad = document.createElement("ins");
+      ad.className = "adsbygoogle";
+      ad.style = "display:block; text-align:center;";
+      ad.setAttribute("data-ad-client", "ca-pub-5648771296388510");
+      ad.setAttribute("data-ad-slot", "1234567890");
+      ad.setAttribute("data-ad-format", "auto");
+      ad.setAttribute("data-full-width-responsive", "true");
 
-        // On vide l'ancien contenu (pour forcer le rechargement)
-        adContainer.innerHTML = `
-          <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-xxxxxxxxxxxxxxxx"
-            data-ad-slot="1234567890"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        `;
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      }, 20000); // toutes les 20 secondes
-    }
+      document.querySelector(".ad-space").innerHTML = "";
+      document.querySelector(".ad-space").appendChild(ad);
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    }, 20000);
   </script>
-
-  <!-- Chargement de la bibliothèque Google Ads -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
 </body>
   </html>
